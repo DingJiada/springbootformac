@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -23,6 +24,17 @@ public class HomeController {
     @RequestMapping("/getUsers")
     public List<TestUser> helloWorld() {
         return testUserService.getUser();
+    }
+
+    @RequestMapping("/streamUsers")
+    public List<TestUser> streamList() {
+        List<TestUser> users = testUserService.getUser();
+
+        return users.stream().map(o -> {
+            o.setId(-1);
+            return o;
+        }).collect(Collectors.toList());
+
     }
 
     @RequestMapping("/home")
