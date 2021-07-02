@@ -1,0 +1,1 @@
+keystore.p12是支持https协议的一个配置文件，在application.yml文件中配置
