@@ -9,4 +9,6 @@ public interface TestUserService {
     List<TestUser> getUser();
 
     void addUser(TestUser user);
+
+    void delUserByName(String name);
 }

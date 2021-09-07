@@ -27,5 +27,8 @@ public interface TestUserDao {
     })
     void delUser(Integer id);
 
-
+    @Delete({
+            "delete from test_user where name = #{name}"
+    })
+    void delUserByName(String name);
 }

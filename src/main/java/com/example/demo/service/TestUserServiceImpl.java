@@ -23,4 +23,9 @@ public class TestUserServiceImpl implements TestUserService {
     public void addUser(TestUser user) {
         testUserDao.addUser(user);
     }
+
+    @Override
+    public void delUserByName(String name) {
+        testUserDao.delUserByName(name);
+    }
 }

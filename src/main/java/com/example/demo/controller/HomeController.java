@@ -71,6 +71,21 @@ public class HomeController {
 
     }
 
+    @Transactional
+    @RequestMapping("/delUser/{user.name}")
+    public void delUserByName(@PathVariable("user.name") String name) {
+        try {
+
+            System.out.println("user.name  = " + name);
+
+            testUserService.delUserByName(name);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @RequestMapping("/uid")
     public String uid(HttpSession session) {
         UUID uid = (UUID) session.getAttribute("uid");
