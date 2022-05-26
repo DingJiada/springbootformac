@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.TestUser;
 import com.example.demo.service.TestUserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -30,10 +27,7 @@ public class HomeController {
     public List<TestUser> streamList() {
         List<TestUser> users = testUserService.getUser();
 
-        return users.stream().map(o -> {
-            o.setId(-1);
-            return o;
-        }).collect(Collectors.toList());
+        return users.stream().peek(o -> o.setId(-1)).collect(Collectors.toList());
 
     }
 
@@ -68,6 +62,19 @@ public class HomeController {
         }
 
 
+
+    }
+
+    /**
+     * TODO
+     * @author Dingjd
+     * @date  2022/5/26 13:14
+     * @param user 请求参数对象
+     */
+    @PutMapping("/addUser")
+    public void addUser(@RequestBody TestUser user) {
+
+        testUserService.addUser(user);
 
     }
 
