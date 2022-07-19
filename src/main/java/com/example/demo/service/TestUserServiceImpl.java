@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.TestUserDao;
+import com.example.demo.dto.TestUserDTO;
 import com.example.demo.entity.TestUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,14 @@ public class TestUserServiceImpl implements TestUserService {
     }
 
     @Override
-    public void addUser(TestUser user) {
-        testUserDao.addUser(user);
+    public Integer addUser(TestUserDTO testUserDTO) {
+        TestUser user = new TestUser();
+        user.setName(testUserDTO.getName());
+        user.setAge(testUserDTO.getAge());
+        user.setPwd(testUserDTO.getPwd());
+        user.setMoney(testUserDTO.getMoney());
+        user.setRemake(testUserDTO.getRemake());
+       return testUserDao.addUser(user);
     }
 
     @Override

@@ -15,20 +15,20 @@ public interface TestUserDao {
             "insert into test_user(name,pwd,age,money,remake) " +
             "values(#{name},#{pwd},#{age},#{money},#{remake});"
     })
-    void addUser(TestUser user);
+    Integer addUser(TestUser user);
 
     @Update({
             "update test_user set "
     })
-    void changeUser(Integer id);
+    Integer changeUser(Integer id);
 
     @Delete({
           "delete from test_user where id = #{id}"
     })
-    void delUser(Integer id);
+    Integer delUser(Integer id);
 
     @Delete({
             "delete from test_user where name = #{name}"
     })
-    void delUserByName(String name);
+    Integer delUserByName(String name);
 }

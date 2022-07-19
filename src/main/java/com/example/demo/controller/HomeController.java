@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.TestUserDTO;
 import com.example.demo.entity.TestUser;
 import com.example.demo.service.TestUserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -14,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class HomeController {
 
@@ -30,9 +28,8 @@ public class HomeController {
     public List<TestUser> streamList() {
         List<TestUser> users = testUserService.getUser();
 
-        return users.stream().map(o -> {
-            o.setId(-1);
-            return o;
+        return users.stream().peek(o -> {
+            o.setId(-1);//隐藏id
         }).collect(Collectors.toList());
 
     }
@@ -43,32 +40,18 @@ public class HomeController {
     }
 
     @Transactional
-    @RequestMapping("/addUser/{user.name}/{user.age}/{user.pwd}/{user.money}/{user.remake}")
-    public void addUser(@PathVariable("user.name") String name,
-                       @PathVariable("user.age") Integer age,
-                       @PathVariable("user.pwd") String pwd,
-                       @PathVariable("user.money") Double money,
-                       @PathVariable("user.remake") String remake
-                      ) {
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public String addUser(@RequestBody TestUserDTO testUserDTO) {
         try {
 
-            System.out.println("user.name  = " + name);
+            System.out.println("user.name  = " + testUserDTO.getName());
 
-            TestUser user = new TestUser();
-            user.setName(name);
-            user.setAge(age);
-            user.setPwd(pwd);
-            user.setMoney(money);
-            user.setRemake(remake);
-
-            testUserService.addUser(user);
-
+            Integer result = testUserService.addUser(testUserDTO);
+            return result.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
+        return null;
     }
 
     @Transactional
