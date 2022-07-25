@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.TestUserDTO;
 import com.example.demo.entity.TestUser;
 import com.example.demo.service.TestUserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
